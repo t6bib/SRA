@@ -1,0 +1,352 @@
+/*
+
+Template 2097 Pop
+
+https://www.tooplate.com/view/2097-pop
+
+*/
+
+body {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-size: 19px;
+    font-weight: 300;
+    color: white;
+    position: relative;
+}
+
+h1 {
+    font-size: 2.8rem;
+}
+
+/* Video Background Styles */
+.video-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: -1;
+}
+
+#myVideo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);  /* Slightly darker overlay */
+}
+
+/* Hero Section */
+.hero-section {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.hero-content {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-content h1 {
+    font-size: 4rem;
+    margin-bottom: 1rem;
+}
+
+.hero-slogan {
+    font-size: 1.5rem;
+}
+
+/* Main Content Section */
+.main-content {
+    background: white;
+    position: relative;
+    z-index: 2;
+    padding: 4rem 0;
+}
+
+/* Navigation */
+.main-nav {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1.2rem 0;
+    background: rgba(0, 0, 0, 0.7);  /* Darker background for better readability */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.main-nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;  /* Increased spacing between items */
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;  /* Slightly bolder text */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+}
+
+.main-nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #c1976a;  /* Gold accent color on hover */
+}
+
+/* Welcome Section Styles */
+.welcome-section {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    background: rgba(255, 255, 255, 0.95);  /* Slightly transparent white */
+    border-radius: 10px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.welcome-section h2 {
+    font-size: 2.5rem;
+    color: #333;
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 2rem;
+}
+
+.features-column ul {
+    list-style: none;
+    padding: 0;
+}
+
+.features-column li {
+    position: relative;
+    padding-left: 1.5rem;
+    margin-bottom: 1rem;
+    color: #666;
+    line-height: 1.6;
+}
+
+.features-column li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #c1976a;  /* Bronze/gold color */
+}
+
+/* Content Layout Fixes */
+.tm-site-header-container {
+    position: relative;
+    z-index: 2;
+    padding: 40px;
+    background: rgba(0, 0, 0, 0.2);  /* Optional: adds slight darkening behind text */
+}
+
+.tm-site-header {
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.grid {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    gap: 20px;
+}
+
+.product__description {
+    background: rgba(0, 0, 0, 0.5);  /* Makes content more readable */
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* Text Visibility */
+h1, h2, p {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);  /* Makes text more readable */
+}
+
+/* Ensure interactive elements are clickable */
+.tm-nav-link,
+.btn,
+a,
+button,
+form,
+input,
+textarea {
+    position: relative;
+    z-index: 2;  /* Bring interactive elements to front */
+}
+
+/* Main content wrapper */
+#tm-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+.tm-main-content {
+    position: relative;
+    z-index: 1;
+}
+
+.grid__item {
+    position: relative;
+    z-index: 2;  /* Ensure grid items are clickable */
+}
+
+/* Services Section */
+.services-section {
+    background: #f9f9f9;
+    padding: 6rem 0;  /* More vertical spacing */
+}
+
+.services-section .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    gap: 3rem;  /* Increased spacing between cards */
+    padding: 0 2rem;
+}
+
+/* Left Column Styles */
+.service-left {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.service-item {
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.service-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.icon {
+    color: #c1976a;
+    font-size: 1.2rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+/* Right Column Styles */
+.service-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.service-card {
+    background: linear-gradient(135deg, #c1976a, #a17c50);  /* Gradient background */
+    color: white;
+    padding: 2.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 2rem;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(193, 151, 106, 0.3);
+}
+
+.service-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.service-card p {
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+.arrow-link {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    font-size: 1.5rem;
+    transition: transform 0.3s ease;
+}
+
+.service-card:hover .arrow-link {
+    transform: translateX(5px);
+}
+
+/* Typography */
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .services-section .container {
+        flex-direction: column;
+    }
+    
+    .service-left, .service-right {
+        width: 100%;
+    }
+}
+
+/* Animations */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.service-item, .service-card {
+    animation: fadeInUp 0.6s ease forwards;
+}
+
+.service-item:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.service-card:nth-child(2) {
+    animation-delay: 0.4s;
+} 
