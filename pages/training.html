@@ -5,10 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Training - Global Path Recruitment</title>
     <link rel="stylesheet" href="../css/styles.css">
-    <!-- Include other CSS files with updated paths -->
+    <link rel="stylesheet" href="pages-css/training-styles.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../fontawesome/css/fontawesome-all.min.css">
 </head>
-<body>
-    <!-- Same navigation as index but with updated paths -->
+<body class="training-page">
+    <!-- Primary Navigation -->
     <nav class="main-nav">
         <ul>
             <li><a href="../index.html">Home</a></li>
@@ -19,10 +22,63 @@
         </ul>
     </nav>
 
-    <!-- Basic content placeholder -->
-    <div class="page-content">
-        <h1>Training</h1>
-        <!-- Content will be added in next prompt -->
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop id="myVideo" playsinline>
+            <source src="../img/training-bg.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
     </div>
+
+    <!-- Hero Section -->
+    <section class="page-hero">
+        <div class="hero-content">
+            <h1>Professional Training Programs</h1>
+            <p class="hero-slogan">Elevate your skills with industry-leading training and certification</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="main-content">
+        <div class="container">
+            <!-- Training Programs Grid -->
+            <div class="training-grid">
+                <!-- Course Card Template -->
+                <div class="course-card">
+                    <div class="course-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h3>Culinary Arts</h3>
+                    <p>Master essential culinary techniques and international cuisine.</p>
+                    <ul class="course-details">
+                        <li>Duration: 12 weeks</li>
+                        <li>Certification included</li>
+                        <li>Hands-on training</li>
+                    </ul>
+                </div>
+
+                <!-- Additional course cards can be added here -->
+            </div>
+
+            <!-- Training Benefits Section -->
+            <section class="benefits-section">
+                <h2>Why Choose Our Training?</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <i class="fas fa-certificate"></i>
+                        <h3>Industry Recognition</h3>
+                        <p>Internationally recognized certifications</p>
+                    </div>
+                    <!-- Additional benefit items can be added here -->
+                </div>
+            </section>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2023 Global Path Recruitment. All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 </html>

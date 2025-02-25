@@ -1,0 +1,190 @@
+/* Base Styles */
+body {
+    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-size: 19px;
+    font-weight: 300;
+    color: white;
+    position: relative;
+}
+
+/* Typography */
+h1 {
+    font-size: 2.8rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+p {
+    line-height: 1.6;
+}
+
+h1, h2, p {
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Layout Containers */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Navigation */
+.main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    padding: 1.2rem 0;
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.main-nav ul {
+    display: flex;
+    justify-content: center;
+    gap: 3rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.main-nav a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+}
+
+.main-nav a:hover {
+    background: rgba(255, 255, 255, 0.1);
+    color: #c1976a;
+}
+
+/* Recruitment Page Specific */
+.recruitment-page .video-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 0;
+    overflow: hidden;
+}
+
+.recruitment-page #recruitmentVideo {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    width: auto;
+    height: auto;
+    transform: translateX(-50%) translateY(-50%);
+    object-fit: cover;
+}
+
+.recruitment-page .video-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.75);
+}
+
+.recruitment-page .page-hero {
+    position: relative;
+    z-index: 1;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.recruitment-page .main-content {
+    position: relative;
+    z-index: 1;
+    background: black;
+}
+
+/* Service Cards */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+.service-card {
+    background: linear-gradient(135deg, #c1976a, #a17c50);
+    padding: 2.5rem;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(193, 151, 106, 0.3);
+}
+
+.service-icon {
+    color: white;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+.service-card h2,
+.service-card h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: white;
+}
+
+.service-card p, 
+.service-card li {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.8rem;
+    line-height: 1.4;
+}
+
+/* Footer */
+footer {
+    background-color: black;
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+footer p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .main-nav ul {
+        gap: 1rem;
+    }
+}
+

@@ -1,0 +1,141 @@
+/* About Page Cards */
+.about-section {
+    background: transparent;
+    padding: 4rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+.about-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: 0 2rem;
+}
+
+.about-card {
+    background: #c1976a;
+    padding: 2.5rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    color: white;
+}
+
+.about-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.about-card i {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 1.5rem;
+}
+
+.about-card h3 {
+    color: white;
+    margin: 1rem 0;
+    font-size: 1.5rem;
+}
+
+.about-card p {
+    color: white;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Team Section */
+.team-section {
+    background: transparent;
+    padding: 4rem 0;
+    position: relative;
+    z-index: 1;
+    width: 100%;
+}
+
+.team-section h2 {
+    text-align: center;
+    color: white;
+    margin-bottom: 3rem;
+    font-size: 2.2rem;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    position: relative;
+    z-index: 2;
+}
+
+.team-member {
+    background: white;
+    padding: 2.5rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+}
+
+.team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
+}
+
+.team-member i {
+    font-size: 2rem;
+    color: #c1976a;
+    margin-bottom: 1.5rem;
+}
+
+.team-member h3 {
+    color: #333333;
+    margin: 1rem 0;
+    font-size: 1.5rem;
+}
+
+.team-member p {
+    color: #4a4a4a;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Ensure content inside team-member is properly spaced */
+.team-member > * {
+    margin-bottom: 1rem;
+}
+
+.team-member > *:last-child {
+    margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .about-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .team-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .about-grid,
+    .team-grid {
+        grid-template-columns: 1fr;
+    }
+}

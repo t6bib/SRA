@@ -1,0 +1,100 @@
+/* Contact Page Styles */
+.contact-section {
+    background: transparent;
+    padding: 4rem 0;
+    position: relative;
+    z-index: 1;
+}
+
+.contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin: 0 auto;
+    max-width: 1200px;
+}
+
+.contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.contact-card {
+    background: #c1976a;
+    padding: 2rem;
+    border-radius: 8px;
+    text-align: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.contact-card i {
+    font-size: 2.5rem;
+    color: white;
+    margin-bottom: 1rem;
+}
+
+.contact-card h3 {
+    color: white;
+    margin: 0.5rem 0;
+    font-size: 1.5rem;
+}
+
+.contact-card p {
+    color: white;
+}
+
+.contact-card a {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s ease;
+}
+
+.contact-card a:hover {
+    opacity: 0.8;
+}
+
+/* Social Links Section */
+.social-links {
+    text-align: center;
+}
+
+.social-links h2 {
+    color: white;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.social-icon {
+    color: white;
+    font-size: 2rem;
+    transition: all 0.3s ease;
+}
+
+.social-icon:hover {
+    color: #c1976a;
+    transform: translateY(-5px);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .contact-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .social-icons {
+        gap: 1.5rem;
+    }
+}
