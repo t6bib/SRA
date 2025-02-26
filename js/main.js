@@ -217,40 +217,49 @@
 
 	// Load navigation component first, before any other functionality
 	document.addEventListener('DOMContentLoaded', function() {
-		// 1. Improved path detection
-		const pathSegments = window.location.pathname.split('/');
-		const isInPagesDirectory = pathSegments.includes('pages');
-		const basePath = isInPagesDirectory ? '../' : './';
-		
-		fetch(basePath + 'components/nav.html')
+		// Determine if we're in the pages directory
+		const isInPagesDirectory = window.location.pathname.includes('/pages/');
+		console.log('Is in pages directory:', isInPagesDirectory);
+		console.log('Current pathname:', window.location.pathname);
+
+		// Update the fetch path based on location
+		fetch(isInPagesDirectory ? '../components/nav.html' : 'components/nav.html')
 			.then(response => {
-				if (!response.ok) throw new Error(`Navigation fetch failed: ${response.status}`);
+				if (!response.ok) throw new Error('Navigation fetch failed');
 				return response.text();
 			})
 			.then(data => {
 				const tempContainer = document.createElement('div');
 				tempContainer.innerHTML = data;
 				
-				// Fix paths based on current location
-				if (isInPagesDirectory) {
-					// Fix logo path
-					const logo = tempContainer.querySelector('.nav-logo img');
-					if (logo) {
-						logo.src = '../img/gpr-logo.png';
-					}
+				// Fix logo path - always point to root index.html
+				const logo = tempContainer.querySelector('.nav-logo');
+				if (logo) {
+					const logoPath = isInPagesDirectory ? '../index.html' : 'index.html';
+					console.log('Logo path:', logoPath);
+					logo.href = logoPath;
 					
-					// Fix navigation links
-					tempContainer.querySelectorAll('.nav-links a').forEach(link => {
-						const href = link.getAttribute('href');
-						if (href === 'index.html') {
-							link.href = '../index.html';
-						} else if (href.startsWith('pages/')) {
-							// When in pages directory, remove the 'pages/' prefix
-							link.href = href.replace('pages/', '');
-						}
-					});
+					const logoImg = logo.querySelector('img');
+					if (logoImg) {
+						const imgPath = isInPagesDirectory ? '../img/gpr-logo.png' : 'img/gpr-logo.png';
+						console.log('Logo image path:', imgPath);
+						logoImg.src = imgPath;
+					}
 				}
-				
+
+				// Fix navigation links
+				tempContainer.querySelectorAll('.nav-links a').forEach(link => {
+					const text = link.textContent.trim().toLowerCase();
+					let newPath;
+					if (text === 'home') {
+						newPath = isInPagesDirectory ? '../index.html' : 'index.html';
+					} else {
+						newPath = isInPagesDirectory ? `${text}.html` : `pages/${text}.html`;
+					}
+					console.log(`Link "${text}" path:`, newPath);
+					link.href = newPath;
+				});
+
 				// Safe DOM insertion
 				const existingNav = document.querySelector('.main-nav');
 				if (existingNav) existingNav.remove();
@@ -258,24 +267,8 @@
 			})
 			.catch(error => {
 				console.error('Navigation error:', error);
-				// Fallback navigation with correct paths
-				const fallbackNav = `
-					<nav class="main-nav">
-						<div class="nav-container">
-							<a href="${basePath}index.html" class="nav-logo">
-								<img src="${basePath}img/gpr-logo.png" alt="Global Path Recruitment Logo">
-							</a>
-							<ul class="nav-links">
-								<li><a href="${basePath}index.html">Home</a></li>
-								<li><a href="${isInPagesDirectory ? 'recruitment.html' : 'pages/recruitment.html'}">Recruitment</a></li>
-								<li><a href="${isInPagesDirectory ? 'training.html' : 'pages/training.html'}">Training</a></li>
-								<li><a href="${isInPagesDirectory ? 'about.html' : 'pages/about.html'}">About</a></li>
-								<li><a href="${isInPagesDirectory ? 'contact.html' : 'pages/contact.html'}">Contact</a></li>
-							</ul>
-						</div>
-					</nav>
-				`;
-				document.body.insertAdjacentHTML('afterbegin', fallbackNav);
+				// Log the error and fall back to static navigation
+				console.log('Falling back to static navigation');
 			});
 	});
 

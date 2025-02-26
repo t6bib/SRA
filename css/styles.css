@@ -2,7 +2,6 @@
 
 /* Base Styles */
 body {
-    font-family: "Open Sans", Helvetica, Arial, sans-serif;
     font-size: 19px;
     font-weight: 300;
     color: white;
@@ -48,6 +47,7 @@ h1, h2, p, .GBP-content {
 .nav-container {
     display: flex;
     align-items: center;
+    justify-content: center;
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
@@ -58,8 +58,11 @@ h1, h2, p, .GBP-content {
 .nav-logo {
     position: absolute;
     left: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
     align-items: center;
+    z-index: 2;
 }
 
 .nav-logo img {
@@ -82,12 +85,14 @@ h1, h2, p, .GBP-content {
     justify-content: center;
 }
 
+.main-nav .nav-links a,
 .nav-links a {
     color: white;
     text-decoration: none;
-    font-family: "Open Sans", Helvetica, Arial, sans-serif;
+    font-family: 'Raleway', sans-serif !important;
     font-size: 1.1rem;
-    font-weight: 400;
+    font-weight: 500;
+    letter-spacing: 0.03em;
     transition: all 0.3s ease;
     padding: 0.5rem 1rem;
     border-radius: 4px;
@@ -468,4 +473,12 @@ textarea {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
+}
+
+/* Add this at the end of the file to override any other styles */
+.main-nav .nav-links.custom-nav-font a,
+.nav-links.custom-nav-font a,
+.custom-nav-font a {
+    font-family: 'Raleway', sans-serif !important;
+    font-weight: 500 !important;
 }

@@ -9,6 +9,11 @@
     margin-bottom: 1rem;
 }
 
+/* Navigation specific style - place it with other nav-related styles */
+.recruitment-page .nav-links a {
+    color: white !important;
+}
+
 .recruitment-page .hero-slogan {
     font-size: 1.5rem;
     margin-bottom: 2rem;
