@@ -1,4 +1,4 @@
-/* About Page Cards */
+/* About Page Specific Styles */
 .about-section {
     background: transparent;
     padding: 4rem 0;
@@ -71,8 +71,6 @@
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 2rem;
-    position: relative;
-    z-index: 2;
 }
 
 .team-member {
@@ -82,8 +80,6 @@
     text-align: center;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
-    position: relative;
-    z-index: 2;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -111,15 +107,7 @@
     color: #4a4a4a;
     font-size: 1rem;
     line-height: 1.6;
-}
-
-/* Ensure content inside team-member is properly spaced */
-.team-member > * {
     margin-bottom: 1rem;
-}
-
-.team-member > *:last-child {
-    margin-bottom: 0;
 }
 
 /* Responsive Design */

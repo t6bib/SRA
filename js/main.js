@@ -215,16 +215,88 @@
 		}
 	}
 
-	// Initialize the page
-	const DOM = {
-		grid: document.querySelector('.grid'),
-		content: document.querySelector('.grid').parentNode,
-		gridItems: Array.from(document.querySelectorAll('.grid__item'))
-	};
+	// Initialize the page only if grid elements exist
+	if (document.querySelector('.grid')) {
+		const DOM = {
+			grid: document.querySelector('.grid'),
+			content: document.querySelector('.grid').parentNode,
+			gridItems: Array.from(document.querySelectorAll('.grid__item'))
+		};
 
-	// Create items for each grid element
-	const items = DOM.gridItems.map(item => new Item(item));
-	DOM.details = new Details();
+		// Create items for each grid element
+		const items = DOM.gridItems.map(item => new Item(item));
+		DOM.details = new Details();
+	}
+
+	// Load navigation component
+	document.addEventListener('DOMContentLoaded', function() {
+		console.log('DOM Content Loaded');
+		
+		// Get the current page path
+		const currentPath = window.location.pathname;
+		let basePath = '';
+		
+		// If we're in a page under /pages/, set basePath to go up one level
+		if (currentPath.includes('/pages/')) {
+			basePath = '../';
+		}
+		
+		console.log('Current path:', currentPath);
+		console.log('Base path:', basePath);
+		
+		fetch(basePath + 'components/nav.html')
+			.then(response => response.text())
+			.then(data => {
+				// Create a temporary container to manipulate the HTML
+				const tempContainer = document.createElement('div');
+				tempContainer.innerHTML = data;
+				
+				// Fix the paths in the navigation HTML
+				if (currentPath.includes('/pages/')) {
+					// Update logo path
+					const logo = tempContainer.querySelector('.nav-logo img');
+					if (logo) {
+						logo.src = '../img/gpr-logo.png';
+					}
+					
+					// Update navigation links
+					const links = tempContainer.querySelectorAll('.nav-links a');
+					links.forEach(link => {
+						const href = link.getAttribute('href');
+						if (href === 'index.html') {
+							link.href = '../index.html';
+						} else if (href.startsWith('pages/')) {
+							// Remove 'pages/' prefix when we're already in the pages directory
+							link.href = href.replace('pages/', '');
+						}
+					});
+				}
+				
+				// Insert the modified navigation
+				document.body.insertAdjacentHTML('afterbegin', tempContainer.innerHTML);
+			})
+			.catch(error => {
+				console.error('Error loading navigation:', error);
+				// Fallback navigation
+				const fallbackNav = `
+					<nav class="main-nav">
+						<div class="nav-container">
+							<a href="${basePath}index.html" class="nav-logo">
+								<img src="${basePath}img/gpr-logo.png" alt="Global Path Recruitment Logo">
+							</a>
+							<ul class="nav-links">
+								<li><a href="${basePath}index.html">Home</a></li>
+								<li><a href="${currentPath.includes('/pages/') ? 'recruitment.html' : 'pages/recruitment.html'}">Recruitment</a></li>
+								<li><a href="${currentPath.includes('/pages/') ? 'training.html' : 'pages/training.html'}">Training</a></li>
+								<li><a href="${currentPath.includes('/pages/') ? 'about.html' : 'pages/about.html'}">About</a></li>
+								<li><a href="${currentPath.includes('/pages/') ? 'contact.html' : 'pages/contact.html'}">Contact</a></li>
+							</ul>
+						</div>
+					</nav>
+				`;
+				document.body.insertAdjacentHTML('afterbegin', fallbackNav);
+			});
+	});
 }
 
 

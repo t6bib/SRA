@@ -1,4 +1,4 @@
-/* Contact Page Styles */
+/* Contact Page Specific Styles */
 .contact-section {
     background: transparent;
     padding: 4rem 0;
@@ -46,12 +46,12 @@
     font-size: 1.5rem;
 }
 
-.contact-card p {
+.contact-card p,
+.contact-card a {
     color: white;
 }
 
 .contact-card a {
-    color: white;
     text-decoration: none;
     transition: opacity 0.3s ease;
 }
