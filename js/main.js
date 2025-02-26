@@ -215,69 +215,50 @@
 		}
 	}
 
-	// Initialize the page only if grid elements exist
-	if (document.querySelector('.grid')) {
-		const DOM = {
-			grid: document.querySelector('.grid'),
-			content: document.querySelector('.grid').parentNode,
-			gridItems: Array.from(document.querySelectorAll('.grid__item'))
-		};
-
-		// Create items for each grid element
-		const items = DOM.gridItems.map(item => new Item(item));
-		DOM.details = new Details();
-	}
-
-	// Load navigation component
+	// Load navigation component first, before any other functionality
 	document.addEventListener('DOMContentLoaded', function() {
-		console.log('DOM Content Loaded');
-		
-		// Get the current page path
-		const currentPath = window.location.pathname;
-		let basePath = '';
-		
-		// If we're in a page under /pages/, set basePath to go up one level
-		if (currentPath.includes('/pages/')) {
-			basePath = '../';
-		}
-		
-		console.log('Current path:', currentPath);
-		console.log('Base path:', basePath);
+		// 1. Improved path detection
+		const pathSegments = window.location.pathname.split('/');
+		const isInPagesDirectory = pathSegments.includes('pages');
+		const basePath = isInPagesDirectory ? '../' : './';
 		
 		fetch(basePath + 'components/nav.html')
-			.then(response => response.text())
+			.then(response => {
+				if (!response.ok) throw new Error(`Navigation fetch failed: ${response.status}`);
+				return response.text();
+			})
 			.then(data => {
-				// Create a temporary container to manipulate the HTML
 				const tempContainer = document.createElement('div');
 				tempContainer.innerHTML = data;
 				
-				// Fix the paths in the navigation HTML
-				if (currentPath.includes('/pages/')) {
-					// Update logo path
+				// Fix paths based on current location
+				if (isInPagesDirectory) {
+					// Fix logo path
 					const logo = tempContainer.querySelector('.nav-logo img');
 					if (logo) {
 						logo.src = '../img/gpr-logo.png';
 					}
 					
-					// Update navigation links
-					const links = tempContainer.querySelectorAll('.nav-links a');
-					links.forEach(link => {
+					// Fix navigation links
+					tempContainer.querySelectorAll('.nav-links a').forEach(link => {
 						const href = link.getAttribute('href');
 						if (href === 'index.html') {
 							link.href = '../index.html';
 						} else if (href.startsWith('pages/')) {
-							// Remove 'pages/' prefix when we're already in the pages directory
+							// When in pages directory, remove the 'pages/' prefix
 							link.href = href.replace('pages/', '');
 						}
 					});
 				}
 				
-				// Insert the modified navigation
+				// Safe DOM insertion
+				const existingNav = document.querySelector('.main-nav');
+				if (existingNav) existingNav.remove();
 				document.body.insertAdjacentHTML('afterbegin', tempContainer.innerHTML);
 			})
 			.catch(error => {
-				console.error('Error loading navigation:', error);
-				// Fallback navigation
+				console.error('Navigation error:', error);
+				// Fallback navigation with correct paths
 				const fallbackNav = `
 					<nav class="main-nav">
 						<div class="nav-container">
@@ -286,10 +267,10 @@
 							</a>
 							<ul class="nav-links">
 								<li><a href="${basePath}index.html">Home</a></li>
-								<li><a href="${currentPath.includes('/pages/') ? 'recruitment.html' : 'pages/recruitment.html'}">Recruitment</a></li>
-								<li><a href="${currentPath.includes('/pages/') ? 'training.html' : 'pages/training.html'}">Training</a></li>
-								<li><a href="${currentPath.includes('/pages/') ? 'about.html' : 'pages/about.html'}">About</a></li>
-								<li><a href="${currentPath.includes('/pages/') ? 'contact.html' : 'pages/contact.html'}">Contact</a></li>
+								<li><a href="${isInPagesDirectory ? 'recruitment.html' : 'pages/recruitment.html'}">Recruitment</a></li>
+								<li><a href="${isInPagesDirectory ? 'training.html' : 'pages/training.html'}">Training</a></li>
+								<li><a href="${isInPagesDirectory ? 'about.html' : 'pages/about.html'}">About</a></li>
+								<li><a href="${isInPagesDirectory ? 'contact.html' : 'pages/contact.html'}">Contact</a></li>
 							</ul>
 						</div>
 					</nav>
@@ -297,6 +278,25 @@
 				document.body.insertAdjacentHTML('afterbegin', fallbackNav);
 			});
 	});
+
+	// 6. Safely handle Details class and grid functionality
+	if (document.querySelector('.grid')) {
+		try {
+			const DOM = {
+				grid: document.querySelector('.grid'),
+				content: document.querySelector('.grid').parentNode,
+				gridItems: Array.from(document.querySelectorAll('.grid__item'))
+			};
+
+			// Only initialize if all required elements exist
+			if (DOM.grid && DOM.content && DOM.gridItems.length > 0) {
+				const items = DOM.gridItems.map(item => new Item(item));
+				DOM.details = new Details();
+			}
+		} catch (error) {
+			console.error('Grid initialization error:', error);
+		}
+	}
 }
 
 
