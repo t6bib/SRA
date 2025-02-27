@@ -159,24 +159,31 @@ h1, h2, p, .GBP-content {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     max-width: 800px;
     padding: 2rem;
+    font-family: 'Raleway', sans-serif;
+    font-weight: 300;
 }
 
 .hero-content h1,
 .GBP-content h1 {
     font-size: 4rem;
     margin-bottom: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.02em;
 }
 
 .hero-slogan,
 .GBP-slogan {
     font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.03em;
+    opacity: 0.9;
 }
 
 /* Main Content Sections */
 .main-content {
     position: relative;
     z-index: 1;
-    background-color: black;
+    background-color: #1a1a1a;
     color: white;
     padding: 4rem 0;
 }
