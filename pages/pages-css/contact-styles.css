@@ -21,43 +21,49 @@
 }
 
 .contact-card {
-    background: #c1976a;
-    padding: 2rem;
-    border-radius: 8px;
+    background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
+    padding: 2.5rem;
+    border-radius: 12px;
     text-align: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s ease;
+    border: 1px solid rgba(193, 151, 106, 0.1);
 }
 
 .contact-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: rgba(193, 151, 106, 0.3);
 }
 
 .contact-card i {
     font-size: 2.5rem;
-    color: white;
+    color: #c1976a;
     margin-bottom: 1rem;
 }
 
 .contact-card h3 {
-    color: white;
+    color: #c1976a;
     margin: 0.5rem 0;
     font-size: 1.5rem;
+    font-weight: 300;
+    letter-spacing: 0.02em;
 }
 
 .contact-card p,
 .contact-card a {
-    color: white;
+    color: rgba(255, 255, 255, 0.8);
+    font-weight: 300;
 }
 
 .contact-card a {
     text-decoration: none;
-    transition: opacity 0.3s ease;
+    transition: all 0.3s ease;
 }
 
 .contact-card a:hover {
-    opacity: 0.8;
+    color: #c1976a;
+    opacity: 1;
 }
 
 /* Social Links Section */
@@ -66,9 +72,11 @@
 }
 
 .social-links h2 {
-    color: white;
+    color: #c1976a;
     margin-bottom: 2rem;
     font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 0.02em;
 }
 
 .social-icons {
@@ -78,7 +86,7 @@
 }
 
 .social-icon {
-    color: white;
+    color: rgba(255, 255, 255, 0.8);
     font-size: 2rem;
     transition: all 0.3s ease;
 }

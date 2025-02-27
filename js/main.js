@@ -290,6 +290,84 @@
 			console.error('Grid initialization error:', error);
 		}
 	}
+
+	// Navigation HTML template
+	const navTemplate = `
+		<nav class="main-nav">
+			<div class="nav-container">
+				<a href="/" class="nav-logo">
+					<img src="/img/gpr-logo.png" alt="Global Path Recruitment">
+				</a>
+				<div class="hamburger-menu">
+					<span></span>
+					<span></span>
+					<span></span>
+				</div>
+				<ul class="nav-links">
+					<li><a href="/">Home</a></li>
+					<li><a href="/pages/about.html">About</a></li>
+					<li><a href="/pages/businesses.html">Businesses</a></li>
+					<li><a href="/pages/candidates.html">Candidates</a></li>
+					<li><a href="/pages/recruitment.html">Recruitment</a></li>
+					<li><a href="/pages/training.html">Training</a></li>
+					<li><a href="/pages/contact.html">Contact</a></li>
+				</ul>
+			</div>
+		</nav>
+	`;
+
+	// Load navigation
+	document.body.insertAdjacentHTML('afterbegin', navTemplate);
+
+	// Mobile navigation functionality /* Added 27/02/2024 - Mobile Navigation JavaScript Implementation */
+	document.addEventListener('DOMContentLoaded', function() {
+		const hamburger = document.querySelector('.hamburger-menu');
+		const navLinks = document.querySelector('.nav-links');
+		const spans = document.querySelectorAll('.hamburger-menu span');
+		const body = document.body;
+
+		if (hamburger && navLinks) {
+			// Toggle menu on hamburger click
+			hamburger.addEventListener('click', (e) => {
+				e.stopPropagation(); // Prevent document click from immediately closing
+				navLinks.classList.toggle('active');
+				body.classList.toggle('menu-open');
+				spans.forEach(span => span.classList.toggle('active'));
+			});
+
+			// Close menu when clicking a link
+			navLinks.querySelectorAll('a').forEach(link => {
+				link.addEventListener('click', () => {
+					navLinks.classList.remove('active');
+					body.classList.remove('menu-open');
+					spans.forEach(span => span.classList.remove('active'));
+				});
+			});
+
+			// Close menu when clicking outside
+			document.addEventListener('click', (e) => {
+				if (navLinks.classList.contains('active') && 
+					!e.target.closest('.nav-links') && 
+					!e.target.closest('.hamburger-menu')) {
+					navLinks.classList.remove('active');
+					body.classList.remove('menu-open');
+					spans.forEach(span => span.classList.remove('active'));
+				}
+			});
+
+			// Prevent menu from staying open on window resize
+			window.addEventListener('resize', () => {
+				if (window.innerWidth > 768) {
+					navLinks.classList.remove('active');
+					body.classList.remove('menu-open');
+					spans.forEach(span => span.classList.remove('active'));
+				}
+			});
+		}
+	});
+
+	// Update current year in footer
+	document.querySelector('.tm-current-year').textContent = new Date().getFullYear();
 }
 
 

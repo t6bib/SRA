@@ -220,22 +220,24 @@ h1, h2, p, .GBP-content {
 }
 
 .service-card {
-    background: linear-gradient(135deg, #c1976a, #a17c50);
+    background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
     padding: 2.5rem;
-    border-radius: 8px;
+    border-radius: 12px;
     position: relative;
     overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    transition: all 0.4s ease;
+    border: 1px solid rgba(193, 151, 106, 0.1);
 }
 
 .service-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 15px rgba(193, 151, 106, 0.3);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+    border-color: rgba(193, 151, 106, 0.3);
 }
 
 .service-icon {
-    color: white;
+    color: #c1976a;
     font-size: 2rem;
     margin-bottom: 1.5rem;
 }
@@ -243,15 +245,18 @@ h1, h2, p, .GBP-content {
 .service-card h2,
 .service-card h3 {
     font-size: 1.8rem;
-    margin-bottom: 1rem;
-    color: white;
+    margin-bottom: 1.2rem;
+    color: #c1976a;
+    font-weight: 300;
+    letter-spacing: 0.02em;
 }
 
 .service-card p, 
 .service-card li {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 0.8rem;
-    line-height: 1.4;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    font-weight: 300;
 }
 
 .service-card ul {
@@ -273,14 +278,14 @@ h1, h2, p, .GBP-content {
 }
 
 .overview-section .service-card {
-    background: #c1976a !important;
-    box-shadow: 0 4px 15px rgba(193, 151, 106, 0.3) !important;
+    background: linear-gradient(135deg, #2c2c2c, #1a1a1a) !important;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2) !important;
 }
 
 .overview-section .service-card:hover {
     transform: translateY(-5px);
-    box-shadow: 0 5px 20px rgba(193, 151, 106, 0.4) !important;
-    background: #c1976a !important;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3) !important;
+    border-color: rgba(193, 151, 106, 0.3) !important;
 }
 
 .overview-content {
@@ -446,40 +451,189 @@ textarea {
     z-index: 2;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-    .hero-content h1,
-    .GBP-content h1 {
-        font-size: 2.5rem;
-    }
+/* Mobile Navigation */ /* Added 27/02/2024 - Mobile Navigation Implementation */
+.hamburger-menu {
+    display: none;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    right: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1001;
+    background: transparent;
+    border: none;
+}
 
-    .services-grid {
-        grid-template-columns: 1fr;
+.hamburger-menu span {
+    display: block;
+    width: 25px;
+    height: 2px;
+    background-color: white;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+    border-radius: 2px;
+}
+
+/* Responsive Design */ /* Added 27/02/2024 - Mobile Responsive Styles */
+@media (max-width: 768px) {
+    /* Navigation */
+    .main-nav {
+        padding: 0.8rem 0;
     }
 
     .nav-container {
-        flex-direction: column;
-        align-items: center;
-    }
-    
-    .nav-logo {
-        position: static;
-        margin-bottom: 1rem;
-    }
-    
-    .nav-links {
-        margin-left: 0;
+        padding: 0 1rem;
     }
 
-    .overview-grid,
-    .process-steps {
-        grid-template-columns: 1fr;
+    .hamburger-menu {
+        display: block;
     }
-    
-    .overview-content {
-        grid-template-columns: 1fr;
+
+    .nav-logo {
+        left: 1rem;
+    }
+
+    .nav-logo img {
+        height: 35px;
+        width: auto;
+    }
+
+    .nav-links {
+        position: fixed;
+        top: 0;
+        right: -100%;
+        height: 100vh;
+        width: 100%;
+        background: rgba(0, 0, 0, 0.95);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        transition: all 0.4s ease;
         gap: 2rem;
+        padding: 4rem 2rem;
     }
+
+    .nav-links.active {
+        right: 0;
+    }
+
+    .nav-links a {
+        font-size: 1.2rem;
+        padding: 0.8rem 2rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    /* Hamburger Animation */ /* Added 27/02/2024 - Hamburger Menu Animation */
+    .hamburger-menu span.active:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+    }
+
+    .hamburger-menu span.active:nth-child(2) {
+        opacity: 0;
+    }
+
+    .hamburger-menu span.active:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+    }
+
+    /* Hero Sections */
+    .hero-content h1,
+    .GBP-content h1 {
+        font-size: 2.5rem;
+        padding: 0 1rem;
+    }
+
+    .hero-slogan,
+    .GBP-slogan {
+        font-size: 1.2rem;
+        padding: 0 1rem;
+    }
+
+    /* Service Cards */
+    .services-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+    }
+
+    .service-card {
+        padding: 2rem;
+    }
+
+    /* Overview Section */
+    .overview-section {
+        grid-template-columns: 1fr !important;
+        padding: 0 1rem;
+    }
+
+    /* Main Content */
+    .main-content {
+        padding: 3rem 0;
+    }
+
+    .container {
+        padding: 0 1rem;
+    }
+
+    /* Typography */
+    body {
+        font-size: 16px;
+    }
+
+    h1 {
+        font-size: 2.2rem;
+    }
+
+    h2 {
+        font-size: 1.8rem;
+    }
+
+    h3 {
+        font-size: 1.4rem;
+    }
+}
+
+@media (max-width: 480px) { /* Added 27/02/2024 - Small Screen Responsive Styles */
+    .nav-logo img {
+        height: 30px;
+    }
+
+    .hamburger-menu {
+        right: 0.5rem;
+    }
+
+    .nav-container {
+        padding: 0 0.5rem;
+    }
+
+    .nav-links {
+        padding: 3rem 1rem;
+    }
+
+    .nav-links a {
+        font-size: 1.1rem;
+        padding: 0.7rem 1.5rem;
+    }
+
+    .hero-content h1,
+    .GBP-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-slogan,
+    .GBP-slogan {
+        font-size: 1.1rem;
+    }
+
+    .service-card {
+        padding: 1.5rem;
+    }
+}
+
+/* Prevent scroll when mobile menu is open */ /* Added 27/02/2024 - Mobile Menu Scroll Prevention */
+body.menu-open {
+    overflow: hidden;
 }
 
 /* Add this at the end of the file to override any other styles */
