@@ -10,6 +10,8 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="pages-css/contact-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- Add EmailJS SDK -->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body class="contact-page">
     <!-- Navigation will be loaded via JavaScript -->
@@ -30,35 +32,52 @@
     <section class="contact-section">
         <div class="container">
             <div class="contact-grid">
-                <div class="contact-info">
-                    <div class="contact-card">
-                        <i class="fas fa-envelope"></i>
-                        <h3>Email</h3>
-                        <p><a href="mailto:info@globalpath.com">info@globalpath.com</a></p>
-                    </div>
-                    
-                    <div class="contact-card">
-                        <i class="fas fa-phone"></i>
-                        <h3>Phone</h3>
-                        <p><a href="tel:+353899755631">+353 89 975 5631</a></p>
-                    </div>
+                <!-- Contact Form Card -->
+                <div class="contact-card">
+                    <i class="fas fa-paper-plane"></i>
+                    <h3>Send Us a Message</h3>
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-group">
+                            <label for="name">Your Name:</label>
+                            <input type="text" id="name" name="name" required placeholder="Enter your name">
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email:</label>
+                            <input type="email" id="email" name="email" required placeholder="Enter your email">
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message:</label>
+                            <textarea id="message" name="message" required placeholder="Type your message here..."></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn" id="submit-btn">
+                            <i class="fas fa-envelope"></i>
+                            <span>Send Message</span>
+                        </button>
+                        <div id="form-status" class="form-status"></div>
+                    </form>
                 </div>
 
-                <div class="social-links">
-                    <h2>Connect With Us</h2>
-                    <div class="social-icons">
-                        <a href="https://linkedin.com" target="_blank" class="social-icon">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://twitter.com" target="_blank" class="social-icon">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-                        <a href="https://facebook.com" target="_blank" class="social-icon">
-                            <i class="fab fa-facebook"></i>
-                        </a>
-                        <a href="https://instagram.com" target="_blank" class="social-icon">
-                            <i class="fab fa-instagram"></i>
-                        </a>
+                <!-- Contact Information Card -->
+                <div class="contact-card">
+                    <div class="contact-info-group">
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <h3>Email</h3>
+                            <p><a href="mailto:info@globalpathrecruitment.com">info@globalpathrecruitment.com</a></p>
+                        </div>
+                        <div class="contact-method">
+                            <i class="fas fa-phone"></i>
+                            <h3>Phone</h3>
+                            <p><a href="tel:+353871081212">+353 87 1081 212</a></p>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <h3>Connect With Us</h3>
+                        <div class="social-icons">
+                            <a href="https://www.instagram.com/globalpathrecruitment" target="_blank" class="social-icon">
+                                <i class="fab fa-instagram"></i>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -67,5 +86,48 @@
 
     <!-- Make sure main.js is included -->
     <script src="../js/main.js"></script>
+    
+    <!-- Add form handling script -->
+    <script type="text/javascript">
+        (function() {
+            // Initialize EmailJS with your user ID
+            emailjs.init("YOUR_USER_ID");
+
+            document.getElementById('contactForm').addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                // Show loading state
+                const submitBtn = document.getElementById('submit-btn');
+                const originalText = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                submitBtn.disabled = true;
+
+                // Get the form status element
+                const formStatus = document.getElementById('form-status');
+                
+                // Send the email using EmailJS
+                emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
+                    .then(function() {
+                        // Success
+                        formStatus.innerHTML = '<div class="success-message">Message sent successfully!</div>';
+                        submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
+                        document.getElementById('contactForm').reset();
+                        
+                        // Reset button after 3 seconds
+                        setTimeout(() => {
+                            submitBtn.innerHTML = originalText;
+                            submitBtn.disabled = false;
+                            formStatus.innerHTML = '';
+                        }, 3000);
+                    }, function(error) {
+                        // Error
+                        formStatus.innerHTML = '<div class="error-message">Failed to send message. Please try again.</div>';
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        console.error('Failed to send email:', error);
+                    });
+            });
+        })();
+    </script>
 </body>
 </html>

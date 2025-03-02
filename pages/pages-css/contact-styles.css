@@ -14,12 +14,7 @@
     max-width: 1200px;
 }
 
-.contact-info {
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
-}
-
+/* Contact Card Styles */
 .contact-card {
     background: linear-gradient(135deg, #2c2c2c, #1a1a1a);
     padding: 2.5rem;
@@ -50,59 +45,195 @@
     letter-spacing: 0.02em;
 }
 
-.contact-card p,
-.contact-card a {
-    color: rgba(255, 255, 255, 0.8);
-    font-weight: 300;
+/* Contact Form Styles */
+.contact-form {
+    margin-top: 1.5rem;
+    text-align: left;
 }
 
-.contact-card a {
-    text-decoration: none;
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    color: #c1976a;
+    margin-bottom: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid rgba(193, 151, 106, 0.2);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
+    font-size: 1rem;
     transition: all 0.3s ease;
 }
 
-.contact-card a:hover {
-    color: #c1976a;
-    opacity: 1;
+.form-group textarea {
+    min-height: 120px;
+    resize: vertical;
 }
 
-/* Social Links Section */
-.social-links {
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #c1976a;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.submit-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.8rem 1.5rem;
+    background: #c1976a;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    background: #a17c50;
+    transform: translateY(-2px);
+}
+
+.submit-btn i {
+    font-size: 1.2rem;
+    margin: 0;
+    color: white;
+}
+
+/* Contact Info Styles */
+.contact-info-group {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.contact-method {
     text-align: center;
 }
 
-.social-links h2 {
-    color: #c1976a;
-    margin-bottom: 2rem;
-    font-size: 2rem;
+.contact-method p,
+.contact-method a {
+    color: rgba(255, 255, 255, 0.8);
+    text-decoration: none;
     font-weight: 300;
-    letter-spacing: 0.02em;
+    transition: all 0.3s ease;
+}
+
+.contact-method a:hover {
+    color: #c1976a;
+}
+
+/* Social Links Styles */
+.social-links {
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid rgba(193, 151, 106, 0.1);
 }
 
 .social-icons {
     display: flex;
     justify-content: center;
-    gap: 2rem;
+    gap: 1.5rem;
+    margin-top: 1rem;
 }
 
 .social-icon {
     color: rgba(255, 255, 255, 0.8);
-    font-size: 2rem;
+    font-size: 1.5rem;
     transition: all 0.3s ease;
 }
 
 .social-icon:hover {
     color: #c1976a;
-    transform: translateY(-5px);
+    transform: translateY(-3px);
+}
+
+/* Form Status Styles */
+.form-status {
+    margin-top: 1rem;
+    text-align: center;
+}
+
+.success-message {
+    color: #4CAF50;
+    background: rgba(76, 175, 80, 0.1);
+    padding: 0.8rem;
+    border-radius: 6px;
+    border: 1px solid rgba(76, 175, 80, 0.2);
+}
+
+.error-message {
+    color: #f44336;
+    background: rgba(244, 67, 54, 0.1);
+    padding: 0.8rem;
+    border-radius: 6px;
+    border: 1px solid rgba(244, 67, 54, 0.2);
+}
+
+/* Loading State */
+.submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+.fa-spinner {
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
 }
 
 /* Responsive Design */
 @media (max-width: 768px) {
     .contact-grid {
         grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+
+    .contact-card {
+        padding: 2rem;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 16px; /* Prevent zoom on mobile */
     }
 
     .social-icons {
-        gap: 1.5rem;
+        gap: 1.2rem;
+    }
+
+    .social-icon {
+        font-size: 1.3rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .contact-card {
+        padding: 1.5rem;
+    }
+
+    .contact-card h3 {
+        font-size: 1.3rem;
+    }
+
+    .submit-btn {
+        width: 100%;
+        justify-content: center;
     }
 }
