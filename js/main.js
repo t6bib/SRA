@@ -215,159 +215,201 @@
 		}
 	}
 
-	// Load navigation component first, before any other functionality
+	// Navigation and Responsive Setup
 	document.addEventListener('DOMContentLoaded', function() {
 		// Determine if we're in the pages directory
 		const isInPagesDirectory = window.location.pathname.includes('/pages/');
-		console.log('Is in pages directory:', isInPagesDirectory);
-		console.log('Current pathname:', window.location.pathname);
+		
+		// Navigation HTML template
+		const navTemplate = `
+			<nav class="main-nav">
+				<div class="nav-container">
+					<a href="${isInPagesDirectory ? '../index.html' : 'index.html'}" class="nav-logo">
+						<img src="${isInPagesDirectory ? '../img/gpr-logo.png' : 'img/gpr-logo.png'}" alt="Global Path Recruitment">
+					</a>
+					<button class="hamburger-menu" aria-label="Menu">
+						<div class="hamburger-box">
+							<span class="hamburger-inner"></span>
+							<span class="hamburger-inner"></span>
+							<span class="hamburger-inner"></span>
+						</div>
+					</button>
+					<ul class="nav-links">
+						<li><a href="${isInPagesDirectory ? '../index.html' : 'index.html'}">Home</a></li>
+						<li><a href="${isInPagesDirectory ? 'about.html' : 'pages/about.html'}">About</a></li>
+						<li><a href="${isInPagesDirectory ? 'recruitment.html' : 'pages/recruitment.html'}">Recruitment</a></li>
+						<li><a href="${isInPagesDirectory ? 'training.html' : 'pages/training.html'}">Training</a></li>
+						<li><a href="${isInPagesDirectory ? 'contact.html' : 'pages/contact.html'}">Contact</a></li>
+					</ul>
+				</div>
+			</nav>
+		`;
 
-		// Update the fetch path based on location
-		fetch(isInPagesDirectory ? '../components/nav.html' : 'components/nav.html')
-			.then(response => {
-				if (!response.ok) throw new Error('Navigation fetch failed');
-				return response.text();
-			})
-			.then(data => {
-				const tempContainer = document.createElement('div');
-				tempContainer.innerHTML = data;
-				
-				// Fix logo path - always point to root index.html
-				const logo = tempContainer.querySelector('.nav-logo');
-				if (logo) {
-					const logoPath = isInPagesDirectory ? '../index.html' : 'index.html';
-					console.log('Logo path:', logoPath);
-					logo.href = logoPath;
-					
-					const logoImg = logo.querySelector('img');
-					if (logoImg) {
-						const imgPath = isInPagesDirectory ? '../img/gpr-logo.png' : 'img/gpr-logo.png';
-						console.log('Logo image path:', imgPath);
-						logoImg.src = imgPath;
-					}
-				}
+		// Remove any existing navigation
+		const existingNav = document.querySelector('.main-nav');
+		if (existingNav) {
+			existingNav.remove();
+		}
 
-				// Fix navigation links
-				tempContainer.querySelectorAll('.nav-links a').forEach(link => {
-					const text = link.textContent.trim().toLowerCase();
-					let newPath;
-					if (text === 'home') {
-						newPath = isInPagesDirectory ? '../index.html' : 'index.html';
-					} else {
-						newPath = isInPagesDirectory ? `${text}.html` : `pages/${text}.html`;
-					}
-					console.log(`Link "${text}" path:`, newPath);
-					link.href = newPath;
-				});
+		// Insert new navigation
+		document.body.insertAdjacentHTML('afterbegin', navTemplate);
 
-				// Safe DOM insertion
-				const existingNav = document.querySelector('.main-nav');
-				if (existingNav) existingNav.remove();
-				document.body.insertAdjacentHTML('afterbegin', tempContainer.innerHTML);
-			})
-			.catch(error => {
-				console.error('Navigation error:', error);
-				// Log the error and fall back to static navigation
-				console.log('Falling back to static navigation');
-			});
+		// Initialize all functionality
+		initializeWebsite();
 	});
 
-	// 6. Safely handle Details class and grid functionality
-	if (document.querySelector('.grid')) {
-		try {
-			const DOM = {
-				grid: document.querySelector('.grid'),
-				content: document.querySelector('.grid').parentNode,
-				gridItems: Array.from(document.querySelectorAll('.grid__item'))
-			};
-
-			// Only initialize if all required elements exist
-			if (DOM.grid && DOM.content && DOM.gridItems.length > 0) {
-				const items = DOM.gridItems.map(item => new Item(item));
-				DOM.details = new Details();
-			}
-		} catch (error) {
-			console.error('Grid initialization error:', error);
-		}
+	function initializeWebsite() {
+		setupMobileMenu();
+		setupResponsiveHandling();
+		updateDeviceClasses();
+		initializeDetailsIfNeeded();
 	}
 
-	// Navigation HTML template
-	const navTemplate = `
-		<nav class="main-nav">
-			<div class="nav-container">
-				<a href="/" class="nav-logo">
-					<img src="/img/gpr-logo.png" alt="Global Path Recruitment">
-				</a>
-				<div class="hamburger-menu">
-					<span></span>
-					<span></span>
-					<span></span>
-				</div>
-				<ul class="nav-links">
-					<li><a href="/">Home</a></li>
-					<li><a href="/pages/about.html">About</a></li>
-					<li><a href="/pages/businesses.html">Businesses</a></li>
-					<li><a href="/pages/candidates.html">Candidates</a></li>
-					<li><a href="/pages/recruitment.html">Recruitment</a></li>
-					<li><a href="/pages/training.html">Training</a></li>
-					<li><a href="/pages/contact.html">Contact</a></li>
-				</ul>
-			</div>
-		</nav>
-	`;
-
-	// Load navigation
-	document.body.insertAdjacentHTML('afterbegin', navTemplate);
-
-	// Mobile navigation functionality /* Added 27/02/2024 - Mobile Navigation JavaScript Implementation */
-	document.addEventListener('DOMContentLoaded', function() {
+	// Mobile Menu Setup
+	function setupMobileMenu() {
 		const hamburger = document.querySelector('.hamburger-menu');
 		const navLinks = document.querySelector('.nav-links');
-		const spans = document.querySelectorAll('.hamburger-menu span');
+		const navItems = document.querySelectorAll('.nav-links li');
 		const body = document.body;
 
 		if (hamburger && navLinks) {
-			// Toggle menu on hamburger click
-			hamburger.addEventListener('click', (e) => {
-				e.stopPropagation(); // Prevent document click from immediately closing
+			// Toggle menu
+			hamburger.addEventListener('click', function(e) {
+				e.stopPropagation();
+				this.classList.toggle('active');
 				navLinks.classList.toggle('active');
 				body.classList.toggle('menu-open');
-				spans.forEach(span => span.classList.toggle('active'));
-			});
 
-			// Close menu when clicking a link
-			navLinks.querySelectorAll('a').forEach(link => {
-				link.addEventListener('click', () => {
-					navLinks.classList.remove('active');
-					body.classList.remove('menu-open');
-					spans.forEach(span => span.classList.remove('active'));
+				// Animate nav items
+				navItems.forEach((item, index) => {
+					if (item.style.animation) {
+						item.style.animation = '';
+					} else {
+						item.style.animation = `navItemFade 0.3s ease forwards ${index / 7 + 0.3}s`;
+					}
 				});
 			});
 
 			// Close menu when clicking outside
-			document.addEventListener('click', (e) => {
-				if (navLinks.classList.contains('active') && 
-					!e.target.closest('.nav-links') && 
-					!e.target.closest('.hamburger-menu')) {
-					navLinks.classList.remove('active');
-					body.classList.remove('menu-open');
-					spans.forEach(span => span.classList.remove('active'));
+			document.addEventListener('click', function(e) {
+				const isClickInside = navLinks.contains(e.target) || hamburger.contains(e.target);
+				
+				if (!isClickInside && navLinks.classList.contains('active')) {
+					closeMenu(hamburger, navLinks, body, navItems);
 				}
 			});
 
-			// Prevent menu from staying open on window resize
-			window.addEventListener('resize', () => {
-				if (window.innerWidth > 768) {
-					navLinks.classList.remove('active');
-					body.classList.remove('menu-open');
-					spans.forEach(span => span.classList.remove('active'));
+			// Close menu when clicking a link
+			navLinks.querySelectorAll('a').forEach(link => {
+				link.addEventListener('click', () => closeMenu(hamburger, navLinks, body, navItems));
+			});
+
+			// Close menu on resize if open
+			window.addEventListener('resize', function() {
+				if (window.innerWidth > 768 && navLinks.classList.contains('active')) {
+					closeMenu(hamburger, navLinks, body, navItems);
+				}
+			});
+
+			// Handle escape key
+			document.addEventListener('keydown', function(e) {
+				if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+					closeMenu(hamburger, navLinks, body, navItems);
 				}
 			});
 		}
-	});
+	}
 
-	// Update current year in footer
-	document.querySelector('.tm-current-year').textContent = new Date().getFullYear();
+	function closeMenu(hamburger, navLinks, body, navItems) {
+		hamburger.classList.remove('active');
+		navLinks.classList.remove('active');
+		body.classList.remove('menu-open');
+		navItems.forEach(item => {
+			item.style.animation = '';
+		});
+	}
+
+	// Device Detection
+	const isMobile = () => window.matchMedia('(max-width: 768px)').matches;
+	const isSmallMobile = () => window.matchMedia('(max-width: 480px)').matches;
+
+	// Responsive Handling
+	function setupResponsiveHandling() {
+		let resizeTimer;
+		window.addEventListener('resize', function() {
+			clearTimeout(resizeTimer);
+			resizeTimer = setTimeout(updateDeviceClasses, 250);
+		});
+	}
+
+	// Update Device-Specific Classes
+	function updateDeviceClasses() {
+		const body = document.body;
+		if (isSmallMobile()) {
+			body.classList.remove('desktop', 'mobile');
+			body.classList.add('small-mobile');
+		} else if (isMobile()) {
+			body.classList.remove('desktop', 'small-mobile');
+			body.classList.add('mobile');
+		} else {
+			body.classList.remove('mobile', 'small-mobile');
+			body.classList.add('desktop');
+		}
+	}
+
+	// Handle iOS vh units bug
+	function setVhProperty() {
+		let vh = window.innerHeight * 0.01;
+		document.documentElement.style.setProperty('--vh', `${vh}px`);
+	}
+
+	// Prevent iOS Safari Bounce Effect
+	document.body.addEventListener('touchmove', function(e) {
+		if (document.body.classList.contains('menu-open')) {
+			e.preventDefault();
+		}
+	}, { passive: false });
+
+	// Initialize Details functionality if needed
+	function initializeDetailsIfNeeded() {
+		if (document.querySelector('.grid')) {
+			try {
+				const DOM = {
+					grid: document.querySelector('.grid'),
+					content: document.querySelector('.grid').parentNode,
+					gridItems: Array.from(document.querySelectorAll('.grid__item'))
+				};
+
+				if (DOM.grid && DOM.content && DOM.gridItems.length > 0) {
+					const items = DOM.gridItems.map(item => new Item(item));
+					DOM.details = new Details();
+				}
+			} catch (error) {
+				console.error('Grid initialization error:', error);
+			}
+		}
+	}
+
+	// Add animation keyframes
+	const style = document.createElement('style');
+	style.textContent = `
+		@keyframes navItemFade {
+			from {
+				opacity: 0;
+				transform: translateX(50px);
+			}
+			to {
+				opacity: 1;
+				transform: translateX(0);
+			}
+		}
+	`;
+	document.head.appendChild(style);
+
+	// Initialize vh property
+	window.addEventListener('resize', setVhProperty);
+	window.addEventListener('orientationchange', setVhProperty);
+	setVhProperty();
 }
 
 

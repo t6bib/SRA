@@ -27,7 +27,7 @@
 }
 
 /* Service Cards - specific to recruitment page */
-.services-grid {
+.recruitment-page .services-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 2rem;
@@ -36,7 +36,7 @@
     padding: 4rem 2rem;
 }
 
-.service-card {
+.recruitment-page .service-card {
     background: linear-gradient(135deg, #c1976a, #a17c50);
     padding: 2.5rem;
     border-radius: 8px;
@@ -44,17 +44,34 @@
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 
-.service-card:hover {
+.recruitment-page .service-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 5px 15px rgba(193, 151, 106, 0.3);
 }
 
-.service-icon {
+.recruitment-page .service-icon {
     color: white;
     font-size: 2rem;
     margin-bottom: 1.5rem;
+}
+
+.recruitment-page .service-card h3 {
+    color: white;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    line-height: 1.2;
+}
+
+.recruitment-page .service-card p {
+    color: white;
+    margin: 0;
+    font-size: 1rem;
+    line-height: 1.5;
+    flex-grow: 1; /* Allow text to fill available space */
 }
 
 /* Process Section */
@@ -155,26 +172,213 @@
     color: white !important;
 }
 
+/* Mobile Service Cards */
+@media (max-width: 768px) {
+    .recruitment-page .services-grid {
+        display: flex !important;
+        flex-direction: column !important;
+        padding: 2rem 1rem !important;
+        gap: 1.5rem !important;
+        grid-template-columns: unset !important;
+    }
+
+    .recruitment-page .service-card {
+        width: 100% !important;
+        margin: 0 !important;
+        padding: 2rem !important;
+        display: flex !important;
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+    }
+
+    .recruitment-page .service-card .service-icon {
+        margin-bottom: 1rem !important;
+        font-size: 1.8rem !important;
+    }
+
+    .recruitment-page .service-card h3 {
+        font-size: 1.3rem !important;
+        margin-bottom: 0.8rem !important;
+        text-align: left !important;
+    }
+
+    .recruitment-page .service-card p {
+        font-size: 0.95rem !important;
+        line-height: 1.5 !important;
+        text-align: left !important;
+    }
+
+    .recruitment-page .service-card .content {
+        width: 100% !important;
+    }
+}
+
+/* Small Screen Adjustments */
+@media (max-width: 480px) {
+    .recruitment-page .services-grid {
+        padding: 1.5rem 1rem !important;
+        gap: 1rem !important;
+    }
+
+    .recruitment-page .service-card {
+        padding: 1.5rem !important;
+    }
+}
+
+/* Process Section Adjustments */
+.process-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+}
+
+.step {
+    position: relative;
+    padding: 2rem;
+}
+
+/* Portal Buttons Adjustments */
+.recruitment-page .hero-content .portal-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 3rem;
+    position: relative;
+    z-index: 2;
+}
+
+.recruitment-page .hero-content .portal-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    background: transparent !important;
+    border: 2px solid #c1976a;
+    border-radius: 50px;
+    color: white !important;
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-decoration: none !important;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.recruitment-page .hero-content .portal-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: #c1976a;
+    transition: width 0.3s ease;
+    z-index: -1;
+}
+
+.recruitment-page .hero-content .portal-btn:hover::before {
+    width: 100%;
+}
+
+.recruitment-page .hero-content .portal-btn:hover {
+    color: white !important;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(193, 151, 106, 0.4);
+}
+
+.recruitment-page .hero-content .portal-btn i {
+    font-size: 1.2rem;
+    color: white !important;
+}
+
 /* Responsive adjustments */
 @media (max-width: 768px) {
+    /* Hero Section Adjustments */
     .recruitment-page .hero-content h1 {
         font-size: 2.5rem;
+        padding: 0 1rem;
+        margin-bottom: 1rem;
     }
 
-    .services-grid,
+    .recruitment-page .hero-slogan {
+        font-size: 1.2rem;
+        padding: 0 1rem;
+        margin-bottom: 2rem;
+    }
+
+    /* Process Section Adjustments */
     .process-steps {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 0 1rem;
     }
 
+    .process-section {
+        padding: 3rem 0;
+    }
+
+    .process-section h2 {
+        font-size: 2rem;
+        padding: 0 1rem;
+    }
+
+    .step {
+        padding: 1.5rem;
+    }
+
+    /* Portal Buttons Adjustments */
     .recruitment-page .hero-content .portal-buttons {
         flex-direction: column;
         align-items: center;
         gap: 1rem;
+        padding: 0 1rem;
     }
 
     .recruitment-page .hero-content .portal-btn {
-        width: 80%;
+        width: 100%;
+        max-width: 300px;
         justify-content: center;
+        padding: 0.8rem 1.5rem;
+    }
+
+    /* Container Adjustments */
+    .container {
+        padding: 0 1rem;
+    }
+}
+
+/* Additional Small Screen Adjustments */
+@media (max-width: 480px) {
+    .recruitment-page .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .recruitment-page .hero-slogan {
+        font-size: 1.1rem;
+    }
+
+    .process-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .step-number {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    .recruitment-page .hero-content .portal-btn {
+        font-size: 1rem;
+        padding: 0.7rem 1.2rem;
+    }
+}
+
+/* Image Background Responsive Adjustments */
+@media (max-width: 768px) {
+    .image-background img {
+        height: 100vh;
+        object-position: center;
     }
 }
 
