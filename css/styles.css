@@ -146,6 +146,50 @@ body {
     font-weight: 300;
     color: white;
     position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Main content wrapper */
+#tm-wrap {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    flex: 1 0 auto;
+}
+
+/* Footer */
+footer {
+    position: relative;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 1rem 0;
+    text-align: center;
+    z-index: 999;
+    flex-shrink: 0;
+}
+
+.tm-copyright-text {
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    margin: 0;
+}
+
+.tm-current-year {
+    color: #c1976a;
+}
+
+@media (max-width: 768px) {
+    footer {
+        padding: 0.8rem 0;
+    }
+    
+    .tm-copyright-text {
+        font-size: 0.85rem;
+    }
 }
 
 /* Typography */
@@ -246,12 +290,6 @@ h1, h2, p, .GBP-content {
 .nav-links a:hover {
     background: rgba(255, 255, 255, 0.1);
     color: #c1976a;
-}
-
-#tm-wrap {
-    position: relative;
-    z-index: 1;
-    width: 100%;
 }
 
 /* Video Background */
@@ -555,22 +593,6 @@ h1, h2, p, .GBP-content {
     color: rgba(255, 255, 255, 0.9);
 }
 
-/* Footer */
-footer {
-    background-color: black;
-    color: white;
-    padding: 2rem 0;
-    text-align: center;
-    position: relative;
-    z-index: 1;
-}
-
-footer p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: rgba(255, 255, 255, 0.8);
-}
-
 /* Z-index Management */
 .tm-site-header-container {
     position: relative;
@@ -824,26 +846,19 @@ textarea {
 
 /* Small Screen Adjustments */
 @media (max-width: 480px) {
-    .hamburger-menu {
-        right: 1rem;
+    :root {
+        --content-spacing: 1.5rem;
     }
 
-    .nav-links {
-        padding: 1.5rem;
-    }
-
-    .nav-links a {
-        padding: 0.8rem;
-        font-size: 1.1rem;
-    }
-
+    .hero-content h1,
     .GBP-content h1 {
         font-size: 2rem;
-        padding-top: 1.5rem;
     }
 
+    .hero-slogan,
     .GBP-slogan {
         font-size: 1.1rem;
+        padding: 0 0.5rem;
     }
 
     .nav-logo img {
@@ -948,3 +963,38 @@ body.menu-open {
         padding: 0 0.5rem;
     }
 }
+
+/* Footer Styles */
+footer {
+    position: relative;
+    width: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    padding: 1rem 0;
+    text-align: center;
+    z-index: 999;
+    flex-shrink: 0;
+}
+
+.tm-copyright-text {
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Raleway', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 300;
+    margin: 0;
+}
+
+.tm-current-year {
+    color: #c1976a;
+}
+
+@media (max-width: 768px) {
+    footer {
+        padding: 0.8rem 0;
+    }
+    
+    .tm-copyright-text {
+        font-size: 0.85rem;
+    }
+}
+
+

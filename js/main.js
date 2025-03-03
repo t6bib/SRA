@@ -242,17 +242,25 @@
 						<li><a href="${isInPagesDirectory ? 'contact.html' : 'pages/contact.html'}">Contact</a></li>
 					</ul>
 				</div>
-			</nav>
-		`;
+			</nav>`;
 
-		// Remove any existing navigation
+		// Footer template
+		const footerTemplate = `
+			<footer>
+				<p class="small tm-copyright-text">Copyright &copy; <span class="tm-current-year">2024</span> Global Path Recruitment</p>
+			</footer>`;
+
+		// Remove any existing navigation and footer
 		const existingNav = document.querySelector('.main-nav');
-		if (existingNav) {
-			existingNav.remove();
-		}
+		const existingFooter = document.querySelector('footer');
+		if (existingNav) existingNav.remove();
+		if (existingFooter) existingFooter.remove();
 
-		// Insert new navigation
+		// Insert navigation at the beginning of the body
 		document.body.insertAdjacentHTML('afterbegin', navTemplate);
+		
+		// Insert footer after the main content
+		document.body.insertAdjacentHTML('beforeend', footerTemplate);
 
 		// Initialize all functionality
 		initializeWebsite();
@@ -411,5 +419,9 @@
 	window.addEventListener('orientationchange', setVhProperty);
 	setVhProperty();
 }
+
+$(function(){
+	// Keep other necessary JavaScript
+});
 
 
