@@ -91,7 +91,7 @@
     <script type="text/javascript">
         (function() {
             // Initialize EmailJS with your user ID
-            emailjs.init("YOUR_PUBLIC_KEY");
+            emailjs.init("0hEBbT5Ndjgs1yxLR");
 
             document.getElementById('contactForm').addEventListener('submit', function(event) {
                 event.preventDefault();
@@ -106,9 +106,10 @@
                 const formStatus = document.getElementById('form-status');
                 
                 // Send the email using EmailJS
-                emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
-                    .then(function() {
+                emailjs.sendForm('service_ka5i2e5', 'template_gfeqvsh', this)
+                    .then(function(response) {
                         // Success
+                        console.log('SUCCESS!', response.status, response.text);
                         formStatus.innerHTML = '<div class="success-message">Message sent successfully!</div>';
                         submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
                         document.getElementById('contactForm').reset();
@@ -121,10 +122,10 @@
                         }, 3000);
                     }, function(error) {
                         // Error
-                        formStatus.innerHTML = '<div class="error-message">Failed to send message. Please try again.</div>';
+                        console.error('FAILED...', error);
+                        formStatus.innerHTML = `<div class="error-message">Failed to send message: ${error.text}</div>`;
                         submitBtn.innerHTML = originalText;
                         submitBtn.disabled = false;
-                        console.error('Failed to send email:', error);
                     });
             });
         })();
