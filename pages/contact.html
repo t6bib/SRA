@@ -10,8 +10,6 @@
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="pages-css/contact-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <!-- Add EmailJS SDK -->
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
 </head>
 <body class="contact-page">
     <!-- Navigation will be loaded via JavaScript -->
@@ -36,14 +34,14 @@
                 <div class="contact-card">
                     <i class="fas fa-paper-plane"></i>
                     <h3>Send Us a Message</h3>
-                    <form id="contactForm" class="contact-form">
+                    <form id="contactForm" class="contact-form" action="https://formspree.io/f/xanqrrjk" method="POST">
                         <div class="form-group">
                             <label for="name">Your Name:</label>
-                            <input type="text" id="name" name="from_name" required placeholder="Enter your name">
+                            <input type="text" id="name" name="name" required placeholder="Enter your name">
                         </div>
                         <div class="form-group">
                             <label for="email">Your Email:</label>
-                            <input type="email" id="email" name="reply_to" required placeholder="Enter your email">
+                            <input type="email" id="email" name="email" required placeholder="Enter your email">
                         </div>
                         <div class="form-group">
                             <label for="message">Your Message:</label>
@@ -89,46 +87,23 @@
     
     <!-- Add form handling script -->
     <script type="text/javascript">
-        (function() {
-            // Initialize EmailJS with your user ID
-            emailjs.init("0hEBbT5Ndjgs1yxLR");
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            // Show loading state
+            const submitBtn = document.getElementById('submit-btn');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
 
-            document.getElementById('contactForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-                
-                // Show loading state
-                const submitBtn = document.getElementById('submit-btn');
-                const originalText = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                submitBtn.disabled = true;
-
-                // Get the form status element
-                const formStatus = document.getElementById('form-status');
-                
-                // Send the email using EmailJS
-                emailjs.sendForm('service_ka5i2e5', 'template_gfeqvsh', this)
-                    .then(function(response) {
-                        // Success
-                        console.log('SUCCESS!', response.status, response.text);
-                        formStatus.innerHTML = '<div class="success-message">Message sent successfully!</div>';
-                        submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
-                        document.getElementById('contactForm').reset();
-                        
-                        // Reset button after 3 seconds
-                        setTimeout(() => {
-                            submitBtn.innerHTML = originalText;
-                            submitBtn.disabled = false;
-                            formStatus.innerHTML = '';
-                        }, 3000);
-                    }, function(error) {
-                        // Error
-                        console.error('FAILED...', error);
-                        formStatus.innerHTML = `<div class="error-message">Failed to send message: ${error.text}</div>`;
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-                    });
-            });
-        })();
+            // Get the form status element
+            const formStatus = document.getElementById('form-status');
+            
+            // Form will be handled by Formspree
+            // We just need to handle the loading state
+            setTimeout(() => {
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        });
     </script>
 </body>
 </html>
