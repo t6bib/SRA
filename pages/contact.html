@@ -4,12 +4,118 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contact - Global Path Recruitment</title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MCA1MCI+PHJlY3Qgd2lkdGg9IjUwIiBoZWlnaHQ9IjUwIiByeD0iOCIgZmlsbD0iIzFhMWExYSIvPjxwYXRoIGQ9Ik0zNSAyMGMwLTUuNS00LjUtMTAtMTAtMTBzLTEwIDQuNS0xMCAxMGMwIDQuNCAyLjkgOC4yIDcgOS41djMuNWgzdi0zLjVjNC4xLTEuMyA3LTUuMSA3LTkuNXoiIGZpbGw9IiNjMTk3NmEiLz48L3N2Zz4=">
+    <!-- Fallback favicon for older browsers -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600&display=swap">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,400">
     <link rel="stylesheet" href="../css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/styles.css">
     <link rel="stylesheet" href="pages-css/contact-styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <style>
+        .form-status {
+            margin-top: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .success-message {
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid rgba(193, 151, 106, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .success-message i {
+            color: #c1976a;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+            animation: scaleIn 0.5s ease forwards;
+        }
+
+        .success-message span {
+            display: block;
+            font-family: 'Raleway', sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            letter-spacing: 0.02em;
+            opacity: 0;
+            animation: fadeIn 0.5s ease 0.2s forwards;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                transform: scale(0.8);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .error-message {
+            background: rgba(220, 53, 69, 0.1);
+            border: 1px solid rgba(220, 53, 69, 0.3);
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            color: #fff;
+            animation: slideIn 0.5s ease forwards;
+        }
+
+        .error-message i {
+            color: #dc3545;
+            font-size: 2rem;
+            margin-bottom: 15px;
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            .success-message,
+            .error-message {
+                padding: 15px;
+            }
+
+            .success-message i,
+            .error-message i {
+                font-size: 1.5rem;
+                margin-bottom: 10px;
+            }
+
+            .success-message span,
+            .error-message span {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
 </head>
 <body class="contact-page">
     <!-- Navigation will be loaded via JavaScript -->
@@ -87,45 +193,56 @@
     
     <!-- Add form handling script -->
     <script type="text/javascript">
-        (function() {
-            // Initialize EmailJS with your user ID
-            emailjs.init("YOUR_USER_ID");
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Show loading state
+            const submitBtn = document.getElementById('submit-btn');
+            const formStatus = document.getElementById('form-status');
+            const originalText = submitBtn.innerHTML;
+            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            submitBtn.disabled = true;
+            formStatus.innerHTML = '';
 
-            document.getElementById('contactForm').addEventListener('submit', function(event) {
-                event.preventDefault();
-                
-                // Show loading state
-                const submitBtn = document.getElementById('submit-btn');
-                const originalText = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-                submitBtn.disabled = true;
-
-                // Get the form status element
-                const formStatus = document.getElementById('form-status');
-                
-                // Send the email using EmailJS
-                emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', this)
-                    .then(function() {
-                        // Success
-                        formStatus.innerHTML = '<div class="success-message">Message sent successfully!</div>';
-                        submitBtn.innerHTML = '<i class="fas fa-check"></i> Sent!';
-                        document.getElementById('contactForm').reset();
-                        
-                        // Reset button after 3 seconds
-                        setTimeout(() => {
-                            submitBtn.innerHTML = originalText;
-                            submitBtn.disabled = false;
-                            formStatus.innerHTML = '';
-                        }, 3000);
-                    }, function(error) {
-                        // Error
-                        formStatus.innerHTML = '<div class="error-message">Failed to send message. Please try again.</div>';
-                        submitBtn.innerHTML = originalText;
-                        submitBtn.disabled = false;
-                        console.error('Failed to send email:', error);
-                    });
+            // Get form data
+            const formData = new FormData(this);
+            
+            // Send to Formspree
+            fetch('https://formspree.io/f/xanqrrjk', {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
+                }
+            })
+            .then(response => {
+                if (response.ok) {
+                    // Show success message
+                    formStatus.innerHTML = `
+                        <div class="success-message">
+                            <i class="fas fa-check-circle"></i>
+                            <span>Message sent successfully.<br>We'll be in touch with you soon.</span>
+                        </div>`;
+                    // Reset form
+                    this.reset();
+                } else {
+                    throw new Error('Form submission failed');
+                }
+            })
+            .catch(error => {
+                // Show error message
+                formStatus.innerHTML = `
+                    <div class="error-message">
+                        <i class="fas fa-exclamation-circle"></i>
+                        <span>Unable to send message.<br>Please try again later.</span>
+                    </div>`;
+            })
+            .finally(() => {
+                // Reset button state
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             });
-        })();
+        });
     </script>
 </body>
 </html>
